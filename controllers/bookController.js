@@ -209,11 +209,8 @@ exports.book_delete_get = (req, res, next) => {
                     .populate('genre')
                     .exec(callback);
             },
-            author(callback) {
-                Author.find(callback);
-            },
-            genres(callback) {
-                Genre.find(callback);
+            book_instances(callback) {
+                BookInstance.find({ book: req.params.id }).exec(callback);
             },
         },
         (err, results) => {
@@ -221,16 +218,13 @@ exports.book_delete_get = (req, res, next) => {
                 return next(err);
             }
             if (results.book == null) {
-                const err = new Error('Book not found');
-                err.status = 404;
-                return next(err);
+                res.redirect('/catalog/books');
             }
 
             res.render('book_delete', {
                 title: 'Delete Book',
-                author: results.author,
-                genres: results.genres,
                 book: results.book,
+                book_instances: results.book_instances,
             });
         },
     );

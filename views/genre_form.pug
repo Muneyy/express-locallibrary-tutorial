@@ -1,7 +1,10 @@
 extends layout
 
 block content
-  h1 #{title}
+  if genre
+    h1 #{title}: #{genre.name}
+  else 
+    h1= title
 
   form(method='POST' action='')
     div.form-group

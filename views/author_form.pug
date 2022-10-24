@@ -1,7 +1,7 @@
 extends layout
 
 block content
-  h1=title
+  h1 #{title}: #{author.name}
 
   form(method='POST' action='')
     div.form-group
@@ -16,6 +16,8 @@ block content
       label(for='date_of_death') Date of death:
       input#date_of_death.form-control(type='date' name='date_of_death' value=(undefined===author ? '' : author.date_of_death) )
     button.btn.btn-primary(type='submit') Submit
+  
+  hr
   if errors
     ul
       for error in errors
